@@ -2,7 +2,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import queue,time,random 
+import queue, random
 from multiprocessing.managers import BaseManager
 #   启动queue
 task_queue = queue.Queue()
@@ -15,8 +15,8 @@ class QueueManager(BaseManager):
 
 
 # 把两个queue都注册到网络
-QueueManager.register('get_task_queue', callable(lambda: task_queue))
-QueueManager.register('get_result_queue', callable(lambda: result_queue))
+QueueManager.register('get_task_queue', callable=lambda: task_queue)
+QueueManager.register('get_result_queue', callable=lambda: result_queue)
 # 绑定端口，设置验证码
 manager = QueueManager(address=('', 5000), authkey=b'qwe')
 manager.start()
